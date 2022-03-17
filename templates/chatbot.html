@@ -1,0 +1,120 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% for file in css_files %}
+    <link rel="stylesheet" href={{file}}>
+    {% endfor %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Chat Bot</title>
+</head>
+<body>
+
+<!--- <div class="sent-img-preview">
+              <img class="img-for-preview" src="{% static 'images/genie.png' %}" alt="">
+              <i class="material-icons close-preview">close</i>
+          </div>-->
+<!--for sent image preview-->
+<div id="chatbot" onload="Scroll()">
+    <div id="chatbot-head">
+        <img alt="" src="{% static 'images/genie.png' %}" id="profile-pic">
+        <span id="profile-name">Masum</span>
+        <i class="material-icons close" onclick="cloose();">close</i>
+    </div>
+    <div id="messages">
+        <!--message-->
+        <div class="msg-container">
+
+            <div class="received-messages">
+                Hello. Congrats
+            </div>
+            <img class="message-avatar" src="{% static 'images/genie.png' %}" alt="">
+
+        </div>
+        <div class="time-date">Tue 6:05pm</div>
+        <!--message-->
+
+
+        <!--message-->
+        <div class="msg-container">
+            <div class="sent-messages">
+                Hi? masum
+            </div>
+
+
+        </div>
+        <div class="time-date">Tue 6:05pm</div>
+        <!--message-->
+
+
+        <!--message-->
+        <div class="msg-container">
+            <div class="received-messages">
+                Hi! I am your Buddy Bot
+            </div>
+            <img class="message-avatar" src="{% static 'images/genie.png' %}" alt="">
+
+        </div>
+        <div class="time-date">Tue 6:05pm</div>
+        <!--message-->
+
+
+        <!--message-->
+        <div class="msg-container">
+            <div class="sent-messages">
+                Masum The Bot
+            </div>
+        </div>
+        <!--message-->
+
+
+        <!--message-->
+        <div class="msg-container">
+            <div class="sent-messages">
+                Hi!
+            </div>
+        </div>
+        <!--message-->
+
+        <!--message-->
+        <div class="msg-container">
+            <div class="sent-messages">
+                Masum The Hero
+            </div>
+        </div>
+        <!--message-->
+        <!--message-->
+        <div class="msg-container">
+            <img class="sent-image" src="{% static 'images/genie.png' %}" alt=""></div>
+        <!--message-->
+        <br><br>
+
+
+    </div>
+    <div id="chatbot-text">
+        <div id="chat-option">
+
+            <label for="picupload" style="display:none;">Select a file:</label>
+            <input type="file" id="picupload" name="picupload" style="display:none;" accept="image/*">
+            <i class="fa fa-picture-o option-i" aria-hidden="true" onclick="puclk()"></i>
+            <i class="fa fa-video-camera option-i i-video"></i>
+        </div>
+        <textarea id="text-area" placeholder="Abc">
+
+                  </textarea>
+        <i class="fa fa-paper-plane option-i" onclick="message_send()" style="cursor:pointer;">
+
+        </i>
+    </div>
+
+
+</div>
+{% for file in js_files %}
+<script type="text/javascript" src="{{ file }}"></script>
+{% endfor %}
+</body>
+
+</html>
