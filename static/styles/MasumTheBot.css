@@ -16,16 +16,15 @@ main {
 }
 
 .glass {
-    background: white !important;
+    /*background: white !important;*/
+    background-image: url(../images/masumthebot.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
     min-height: 80vh;
-    min-width: 40vh;
-    width: 50%;
-    background: linear-gradient(
-            to right bottom,
-            rgba(255, 255, 255, 0.5),
-            rgba(255, 255, 255, 0.25)
-    ) !important;
-    border-radius: 2rem;
+    min-width: 35vh;
+    width: 35%;
+
+    border-radius: 1rem;
     z-index: 20;
     backdrop-filter: blur(2rem);
     display: flex;
@@ -33,72 +32,101 @@ main {
 }
 
 .circle1,
-.circle2 {
-    background: white;
-    background: linear-gradient(
-            to right bottom,
-            rgba(255, 255, 255, 0.9),
-            rgba(255, 255, 255, 0.2)
-    ) !important;
-    height: 20rem;
-    width: 20rem;
+.circle2,
+.circle3,
+.circle4,
+.circle5 {
+    z-index: 0;
+    height: 7rem;
+    width: 7rem;
     position: absolute;
-    border-radius: 50%;
+    border-radius: 70%;
     animation: rotateIn 2s ease-out;
 }
 
 .circle1 {
-    top: 3%;
+    background-image: url(../images/masumthebot.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 5%;
+    left: 10%;
+}
+
+.circle4 {
+    background-image: url(../images/masum.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 40%;
+    left: 10%;
+}
+
+.circle5 {
+    background-image: url(../images/genie.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 75%;
     left: 10%;
 }
 
 .circle2 {
-    bottom: 3%;
+    background-image: url(../images/future_me.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    bottom: 20%;
     right: 10%;
 }
 
-.dashboard {
-    height: 80vh;
-    width: 20%;
-    border-radius: 2rem 0 0 2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(
-            to right bottom,
-            rgba(255, 255, 255, 0.5),
-            rgba(255, 255, 255, 0.2)
-    ) !important;
+.circle3 {
+    background-image: url(../images/Masum_300x400.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    bottom: 60%;
+    right: 10%;
 }
 
-.bot {
-    height: 125px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.bot img {
-    animation: bot_rotate 1s ease-out;
-}
+/*.dashboard {*/
+/*    height: 80vh;*/
+/*    width: 20%;*/
+/*    border-radius: 2rem 0 0 2rem;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background: linear-gradient(*/
+/*            to right bottom,*/
+/*            rgba(255, 255, 255, 0.5),*/
+/*            rgba(255, 255, 255, 0.2)*/
+/*    ) !important;*/
+/*}*/
 
-.bot h3 {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-}
+/*.bot {*/
+/*    height: 125px;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*}*/
 
-.bot p {
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-size: 13px;
-}
+/*.bot img {*/
+/*    animation: bot_rotate 1s ease-out;*/
+/*}*/
+
+/*.bot h3 {*/
+/*    font-family: "Poppins", sans-serif;*/
+/*    font-weight: 500;*/
+/*    font-size: 20px;*/
+/*}*/
+
+/*.bot p {*/
+/*    font-family: "Poppins", sans-serif;*/
+/*    font-weight: 300;*/
+/*    font-size: 13px;*/
+/*}*/
 
 .chat-section {
     height: 80vh;
-    width: 70%;
+    width: 100%;
     /* background: aqua; */
     border-radius: 0 2rem 2rem 0;
 }
@@ -121,34 +149,36 @@ main {
 .input-container {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .bot-msg {
     float: left;
-    background-color: rgb(250, 85, 241);
-    color: #fff;
-    border-radius: 0px 20px 20px 20px;
+    /*background-color: rgb(250, 85, 241);*/
+    background-color: rgb(0, 0, 0);
+    color: rgb(0, 255, 0);
+    border-radius: 0 12px 12px 12px;
     padding: 15px;
-    text-align: left;
+    text-align: justify;
+    overflow: auto;
 }
 
 .input-msg {
     float: right;
-    height: 100%;
-    width: auto;
-    background-color: rgb(86, 79, 255);
-    color: white;
-    border-radius: 20px 0px 20px 20px;
+    /*background-color: rgb(86, 79, 255);*/
+    background-color: rgb(255, 248, 220);
+    color: rgb(0, 0, 0);
+    border-radius: 12px 0 12px 12px;
     padding: 15px;
-    text-align: right;
+    text-align: justify;
+    overflow: auto;
+
 }
 
 .type-section {
     position: absolute;
     bottom: 2%;
-    width: 70%;
-    display: flex;
+    width: 50%;
     justify-content: center;
     align-items: center;
 }
@@ -156,8 +186,8 @@ main {
 .type-section input {
     border: none;
     outline: none;
-    width: 100%;
-    margin: 0 30px;
+    width: 70%;
+    bottom: 2%;
     height: 2.2rem;
     border-radius: 5rem;
     background: linear-gradient(

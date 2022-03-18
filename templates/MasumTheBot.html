@@ -4,53 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/MasumTheBot.css') }}"/>
-    <title>Bot UI</title>
+    <title>Smart Study Mate</title>
 </head>
 <body>
 
-    <main>
-        <section class="glass">
-            <div class="dashboard">
-                <div class="bot">
-                    <img src="{{ url_for('static', filename='images/masum.jpg') }}" alt="bot" height="80px" width="80px">
-                    <h3>Buddy Bot</h3>
-                    <p>Your Smart Study mate</p>
+<main>
+    <section class="glass">
+        <div class="chat-section">
+            <div class="chat-view">
+                <div class="bot-container">
+                    <div class="bot-msg">Hey mate! I am Your Buddy Bot. Want some help? Pleasure is mine tho.</div>
                 </div>
             </div>
-            <div class="chat-section">
-                <div class="chat-view">
-                        <div class="bot-container">
-                            <div class="bot-msg">Hey mate! I am Your Assist. Want some help? Pleasure is mine tho.</div>
-                        </div>
-                </div>
-                <div class="type-section">
-                    <input id="my-text" class = "input-field" type="text" name="msg">
-                </div>
+            &nbsp;
+            <div class="type-section">
+                <input id="my-text" class="input-field" placeholder="Ask Anything Here..." type="text" name="msg">
             </div>
-        </section>
-        <div class="circle1"></div>
-        <div class="circle2"></div>
-    </main>
+        </div>
+    </section>
+    <div class="circle1" style="background-image: '{{ url_for('static', filename='images/masum.jpg') }}';"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    <div class="circle4"></div>
+    <div class="circle5"></div>
+</main>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        function getBotResponse(){
-    var myText = $("#my-text").val();
-    var userBubble = '<div class="input-container"><div class="input-msg">'+ myText +'</div></div>';
-    $("#my-text").val("");
-    $(".chat-view").append(userBubble);
-    $(".chat-view").stop().animate({scrollTop: $(".chat-view")[0].scrollHeight}, 1000);
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function getBotResponse() {
+        var myText = $("#my-text").val();
+        var userBubble = '&nbsp;<div class="input-container"><div class="input-msg">' + myText + '</div></div>';
+        $("#my-text").val("");
+        $(".chat-view").append(userBubble);
+        $(".chat-view").stop().animate({scrollTop: $(".chat-view")[0].scrollHeight}, 1000);
 
-    $.get("/get", {msg: myText }).done(function(data){
-        var botBubble = '<div class="bot-container"><div class="bot-msg">'+ data +'</div></div>';
-        $(".chat-view").append(botBubble);
-    });
-}
-$("#my-text").keypress(function(e){
-    if (e.which == 13){
-        getBotResponse();
+        $.get("/get", {msg: myText}).done(function (data) {
+            var botBubble = '&nbsp;<div class="bot-container"><div class="bot-msg">' + data + '</div></div>&nbsp; ';
+            $(".chat-view").append(botBubble);
+        });
     }
-});
-    </script>
+
+    $("#my-text").keypress(function (e) {
+        if (e.which == 13) {
+            getBotResponse();
+        }
+    });
+</script>
 </body>
 </html>
