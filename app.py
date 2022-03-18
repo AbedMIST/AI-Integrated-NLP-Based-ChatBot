@@ -1,39 +1,40 @@
 # libraries
 import random
+import os
+from os.path import isfile, join
+
 import numpy as np
 import pickle
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from flask_ngrok import run_with_ngrok
 import nltk
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
-import os
 from os import listdir
 
 lemmatizer = WordNetLemmatizer()
 
-
-def compile_javascript():  # Defining the path to the folder where the JS files are saved
-    path = 'static/javascript'  # Getting all the files from that folder
-    files = [f for f in listdir(path) if isfile(join(path, f))]  # Setting an iterator
-    i = 0  # Looping through the files in the first folder
-    for file in files:  # Building a file name
-        file_name = "javascript/" + file  # Creating a URL and saving it to a list
-        all_js_files[i] = url_for('static', filename=file_name)  # Updating list index before moving on to next file
-        i += 1
-    return all_js_files
-
-
-def compile_css():
-    path = 'static/styles'
-    files = [f for f in listdir(path) if isfile(join(path, f))]
-    i = 0
-    for file in files:
-        file_name = "styles/" + file
-        all_js_files[i] = url_for('static', filename=file_name)
-        i += 1
-    return all_css_files
+# def compile_javascript():  # Defining the path to the folder where the JS files are saved
+#     path = 'static/javascript'  # Getting all the files from that folder
+#     files = [f for f in listdir(path) if isfile(join(path, f))]  # Setting an iterator
+#     i = 0  # Looping through the files in the first folder
+#     for file in files:  # Building a file name
+#         file_name = "javascript/" + file  # Creating a URL and saving it to a list
+#         all_js_files[i] = url_for('static', filename=file_name)  # Updating list index before moving on to next file
+#         i += 1
+#     return all_js_files
+#
+#
+# def compile_css():
+#     path = 'static/styles'
+#     files = [f for f in listdir(path) if isfile(join(path, f))]
+#     i = 0
+#     for file in files:
+#         file_name = "styles/" + file
+#         all_js_files[i] = url_for('static', filename=file_name)
+#         i += 1
+#     return all_css_files
 
 
 # chat initialization
@@ -48,32 +49,35 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/chatbot')
 def home():
-    all_js_files = compile_javascript()
-    all_css_files = compile_css()
-    return render_template('chatbot.html',
-                           title='Home',
-                           js_files=all_js_files,
-                           css_files=all_css_files)
+    # all_js_files = compile_javascript()++
+    # all_css_files = compile_css()
+    return render_template('testing.html',
+                           title='MasumTheBot')
 
+@app.route('/get')
+def get_bot_response():
+    userText = request.args.get('msg')
+    print(userText)
+    return chatbot_response(str(userText))
 
-@app.route("/get", methods=["POST"])
-def chatbot_response():
-    msg = request.form["msg"]
+# @app.route("/get", methods=["POST"])
+def chatbot_response(msg):
+    # msg = request.form["msg"]
     # checks is a user has given a name, in order to give a personalized feedback
-    if msg.startswith('my name is'):
-        name = msg[11:]
-        ints = predict_class(msg, model)
-        res1 = getResponse(ints, intents)
-        res = res1.replace("{n}", name)
-    elif msg.startswith('hi my name is'):
-        name = msg[14:]
-        ints = predict_class(msg, model)
-        res1 = getResponse(ints, intents)
-        res = res1.replace("{n}", name)
-    # if no name is passed execute normally
-    else:
-        ints = predict_class(msg, model)
-        res = getResponse(ints, intents)
+    # if msg.startswith('my name is'):
+    #     name = msg[11:]
+    #     ints = predict_class(msg, model)
+    #     res1 = getResponse(ints, intents)
+    #     res = res1.replace("{n}", name)
+    # elif msg.startswith('hi my name is'):
+    #     name = msg[14:]
+    #     ints = predict_class(msg, model)
+    #     res1 = getResponse(ints, intents)
+    #     res = res1.replace("{n}", name)
+    # # if no name is passed execute normally
+    # else:
+    ints = predict_class(msg, model)
+    res = getResponse(ints, intents)
     return res
 
 
@@ -125,4 +129,5 @@ def getResponse(ints, intents_json):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8000)
+    # app.run(host="localhost", port=8000)
+    app.run()

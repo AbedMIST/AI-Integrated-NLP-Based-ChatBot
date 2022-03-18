@@ -1,12 +1,10 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% for file in css_files %}
-    <link rel="stylesheet" href={{file}}>
-    {% endfor %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/chatbot.css') }}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Chat Bot</title>
@@ -14,13 +12,13 @@
 <body>
 
 <!--- <div class="sent-img-preview">
-              <img class="img-for-preview" src="{% static 'images/genie.png' %}" alt="">
-              <i class="material-icons close-preview">close</i>
-          </div>-->
+        <img class="img-for-preview" src="masum.jpg" alt="">
+        <i class="material-icons close-preview">close</i>
+    </div>-->
 <!--for sent image preview-->
 <div id="chatbot" onload="Scroll()">
     <div id="chatbot-head">
-        <img alt="" src="{% static 'images/genie.png' %}" id="profile-pic">
+        <img alt="" src="{{ url_for('static', filename='images/masum.jpg') }}" id="profile-pic">
         <span id="profile-name">Masum</span>
         <i class="material-icons close" onclick="cloose();">close</i>
     </div>
@@ -31,7 +29,7 @@
             <div class="received-messages">
                 Hello. Congrats
             </div>
-            <img class="message-avatar" src="{% static 'images/genie.png' %}" alt="">
+            <img class="message-avatar" src="{{ url_for('static', filename='images/masum.jpg') }}" alt="">
 
         </div>
         <div class="time-date">Tue 6:05pm</div>
@@ -52,10 +50,8 @@
 
         <!--message-->
         <div class="msg-container">
-            <div class="received-messages">
-                Hi! I am your Buddy Bot
-            </div>
-            <img class="message-avatar" src="{% static 'images/genie.png' %}" alt="">
+            <div class="received-messages">Hi! I am your Buddy Bot</div>
+            <img class="message-avatar" src="{{ url_for('static', filename='images/masum.jpg') }}" alt="">
 
         </div>
         <div class="time-date">Tue 6:05pm</div>
@@ -81,14 +77,12 @@
 
         <!--message-->
         <div class="msg-container">
-            <div class="sent-messages">
-                Masum The Hero
-            </div>
+            <div class="sent-messages">Masum The Hero</div>
         </div>
         <!--message-->
         <!--message-->
         <div class="msg-container">
-            <img class="sent-image" src="{% static 'images/genie.png' %}" alt=""></div>
+            <img class="sent-image" src="{{ url_for('static', filename='images/masum.jpg') }}" alt=""></div>
         <!--message-->
         <br><br>
 
@@ -102,19 +96,70 @@
             <i class="fa fa-picture-o option-i" aria-hidden="true" onclick="puclk()"></i>
             <i class="fa fa-video-camera option-i i-video"></i>
         </div>
-        <textarea id="text-area" placeholder="Abc">
-
-                  </textarea>
-        <i class="fa fa-paper-plane option-i" onclick="message_send()" style="cursor:pointer;">
+        <label for="text-area"></label><input type="text" id="text-area" placeholder="Message" name="msg" class="input-field"/>
+        <i class="fa fa-paper-plane option-i" onclick="getBotResponse()" style="cursor:pointer;">
 
         </i>
     </div>
 
 
 </div>
-{% for file in js_files %}
-<script type="text/javascript" src="{{ file }}"></script>
-{% endfor %}
+
+
+<script type="text/javascript">
+    function getBotResponse() {
+        var myText = $("#text-area").val();
+        var userBubble = '<div class="sent-messages">'+ myText + '</div>';
+        $("#text-area").val("");
+        $(".msg-container").append(userBubble);
+        $(".msg-container").stop().animate({scrollTop: $(".msg-container")[0].scrollHeight}, 1000);
+
+        $.get("/get", {msg: myText}).done(function (data) {
+            var botBubble = '<div class="received-messages">'+ data +'</div>';
+            $(".msg-container").append(botBubble);
+        });
+    }
+
+    document.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        getBotResponse();
+        {#message_send();#}
+    }
+});
+</script>
+
+{#<script src="{{ url_for('static', filename='javascript/chatbot.js') }}"></script>#}
+
+{#<script>#}
+{#    $(document).ready(function () {#}
+{#        $("form").on("submit", function (event) {#}
+{#            var rawText = $("#text-area").val();#}
+{#            var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";#}
+{#            $("#text-area").val("");#}
+{#            $("#chatbox").append(userHtml);#}
+{#            document.getElementById("userInput").scrollIntoView({#}
+{#                block: "start",#}
+{#                behavior: "smooth",#}
+{#            });#}
+{#            $.ajax({#}
+{#                data: {#}
+{#                    msg: rawText,#}
+{#                },#}
+{#                type: "POST",#}
+{#                url: "/get",#}
+{#            }).done(function (data) {#}
+{#                var botHtml = '<p class="botText"><span>' + data + "</span></p>";#}
+{#                $("#chatbox").append($.parseHTML(botHtml));#}
+{#                document.getElementById("userInput").scrollIntoView({#}
+{#                    block: "start",#}
+{#                    behavior: "smooth",#}
+{#                });#}
+{#            });#}
+{#            event.preventDefault();#}
+{#        });#}
+{#    });#}
+{#</script>#}
+
 </body>
 
 </html>

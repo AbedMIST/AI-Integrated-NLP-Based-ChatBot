@@ -3,12 +3,17 @@ virtualenv venv
 cd venv/Scripts
 activate
 cd ../..
+
+python -m venv .venv
+.\venv\Scripts\activate
+
 pip install tensorflow
 pip install tensorflow-gpu
 
 
 pip install Flask
 pip install nltk
+pip install flask-ngrok
 pip install flask==0.12.2
 
 '''
