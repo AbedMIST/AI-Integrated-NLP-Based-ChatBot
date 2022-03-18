@@ -2,104 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/MasumTheBot.css') }}"/>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <title>Smart Study Mate</title>
+    <title>Bot UI</title>
 </head>
 <body>
-<div class="container bootstrap snippets bootdeys">
-    <div class="col-md-7 col-xs-12 col-md-offset-2">
-        <!-- Panel Chat -->
-        <div class="panel" id="chat">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <i class="icon wb-chat-text" aria-hidden="true"></i> Chat
-                </h3>
+
+    <main>
+        <section class="glass">
+            <div class="dashboard">
+                <div class="bot">
+                    <img src="{{ url_for('static', filename='images/masum.jpg') }}" alt="bot" height="80px" width="80px">
+                    <h3>Buddy Bot</h3>
+                    <p>Your Smart Study mate</p>
+                </div>
             </div>
-            <form>
-                <div class="panel-body">
-                    <div class="chats">
-                        <div class="chat chat-left" id="chatbox">
-                            <div class="chat-avatar">
-                                <a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left"
-                                   title="" data-original-title="Edward Fletcher">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="...">
-                                    <i></i>
-                                </a>
-                            </div>
-                            <div class="chat-body">
-                                <div class="chat-content">
-                                    <p>Well, I am just looking around.</p>
-                                    <time class="chat-time" datetime="2015-07-01T11:39">11:39:57 am</time>
-                                </div>
-                            </div>
+            <div class="chat-section">
+                <div class="chat-view">
+                        <div class="bot-container">
+                            <div class="bot-msg">Hey mate! I am Your Assist. Want some help? Pleasure is mine tho.</div>
                         </div>
-                        <div class="chat" id="userInput">
-                            <div class="chat-avatar">
-                                <a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="right"
-                                   title="" data-original-title="June Lane">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="...">
-                                    <i></i>
-                                </a>
-                            </div>
-                            <div class="chat-body">
-                                <div class="chat-content">
-                                    <p>
-                                        If necessary, please ask me.
-                                    </p>
-                                    <time class="chat-time" datetime="2015-07-01T11:40">11:40:10 am</time>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="panel-footer">
-
-                    <div id="userInput" class="input-group">
-                        <input id="text" type="text" name="msg" placeholder="Message" class="form-control">
-                        <span class="input-group-btn">
-                    <button type="submit" id="send" class="btn btn-primary">Send</button>
-                        </span>
-                    </div>
+                <div class="type-section">
+                    <input id="my-text" class = "input-field" type="text" name="msg">
                 </div>
-            </form>
-        </div>
-        <!-- End Panel Chat -->
-    </div>
-</div>
+            </div>
+        </section>
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+    </main>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function getBotResponse(){
+    var myText = $("#my-text").val();
+    var userBubble = '<div class="input-container"><div class="input-msg">'+ myText +'</div></div>';
+    $("#my-text").val("");
+    $(".chat-view").append(userBubble);
+    $(".chat-view").stop().animate({scrollTop: $(".chat-view")[0].scrollHeight}, 1000);
 
-
-<script>
-    $(document).ready(function () {
-        $("form").on("submit", function (event) {
-            var rawText = $("#text").val();
-            var userHtml = '<div class="chat-avatar"><a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="..."><i></i></a></div><div class="chat-body"><div class="chat-content"><p>' + rawText + '</p><time class="chat-time" datetime="2015-07-01T11:39">11:39:57 am</time></div></div>';
-            $("#text").val("");
-            $("#userInput").append(userHtml);
-            document.getElementById("userInput").scrollIntoView({
-                block: "start",
-                behavior: "smooth",
-            });
-            $.ajax({
-                data: {
-                    msg: rawText,
-                },
-                type: "POST",
-                url: "/get",
-            }).done(function (data) {
-                var botHtml = '<div class="chat-avatar"><a class="avatar avatar-online" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="Edward Fletcher"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="..."><i></i></a></div><div class="chat-body"><div class="chat-content"><p>'+ data +'</p><time class="chat-time" datetime="2015-07-01T11:39">11:39:57 am</time></div></div>';
-                $("#chatbox").append($.parseHTML(botHtml));
-                document.getElementById("userInput").scrollIntoView({
-                    block: "start",
-                    behavior: "smooth",
-                });
-            });
-            event.preventDefault();
-        });
+    $.get("/get", {msg: myText }).done(function(data){
+        var botBubble = '<div class="bot-container"><div class="bot-msg">'+ data +'</div></div>';
+        $(".chat-view").append(botBubble);
     });
-</script>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+}
+$("#my-text").keypress(function(e){
+    if (e.which == 13){
+        getBotResponse();
+    }
+});
+    </script>
 </body>
 </html>

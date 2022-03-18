@@ -51,7 +51,7 @@ app = Flask(__name__)
 def home():
     # all_js_files = compile_javascript()++
     # all_css_files = compile_css()
-    return render_template('testing.html',
+    return render_template('MasumTheBot.html',
                            title='MasumTheBot')
 
 @app.route('/get')
