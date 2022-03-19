@@ -11,24 +11,50 @@ main {
     min-height: 100vh;
     background: linear-gradient(to right top, #fa55f1, #b361fa) !important;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bot-intro {
+    z-index: 20;
+    animation: transitionIn 1s;
     justify-content: center;
     align-items: center;
 }
 
 .glass {
     /*background: white !important;*/
-    background-image: url(../images/masumthebot.jpg);
-    background-size: cover;
+    background-image: url(../images/00.jpg);
     background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: #464646;
     min-height: 80vh;
     min-width: 35vh;
     width: 35%;
-
     border-radius: 1rem;
     z-index: 20;
     backdrop-filter: blur(2rem);
     display: flex;
-    animation: transitionIn 1s;
+    animation: transitionIn 2s;
+}
+
+.rectangle1 {
+    z-index: 0;
+    height: 20rem;
+    width: 15rem;
+    position: absolute;
+    border-radius: 4%;
+    animation: transitionIn 2s ease-in-out;
+}
+
+#rectangle1 {
+    background-image: url(../images/masumthebot.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top: 32%;
+    left: 8%;
 }
 
 .circle1,
@@ -37,10 +63,10 @@ main {
 .circle4,
 .circle5 {
     z-index: 0;
-    height: 7rem;
-    width: 7rem;
+    height: 8rem;
+    width: 8rem;
     position: absolute;
-    border-radius: 70%;
+    border-radius: 50%;
     animation: rotateIn 2s ease-out;
 }
 
@@ -48,81 +74,41 @@ main {
     background-image: url(../images/masumthebot.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    top: 5%;
-    left: 10%;
+    top: 43%;
+    right: 12%;
 }
 
 .circle4 {
-    background-image: url(../images/masum.jpg);
+    background-image: url(../images/masumthebot.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    top: 40%;
-    left: 10%;
+    top: 18%;
+    right: 5%;
 }
 
 .circle5 {
-    background-image: url(../images/genie.png);
+    background-image: url(../images/masumthebot.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    top: 75%;
-    left: 10%;
+    top: 18%;
+    right: 18%;
 }
 
 .circle2 {
-    background-image: url(../images/future_me.jpg);
+    background-image: url(../images/masumthebot.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    bottom: 20%;
-    right: 10%;
+    top: 70%;
+    right: 5%;
 }
 
 .circle3 {
-    background-image: url(../images/Masum_300x400.jpeg);
+    background-image: url(../images/masumthebot.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    bottom: 60%;
-    right: 10%;
+    top: 70%;
+    right: 18%;
 }
-
-
-/*.dashboard {*/
-/*    height: 80vh;*/
-/*    width: 20%;*/
-/*    border-radius: 2rem 0 0 2rem;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    background: linear-gradient(*/
-/*            to right bottom,*/
-/*            rgba(255, 255, 255, 0.5),*/
-/*            rgba(255, 255, 255, 0.2)*/
-/*    ) !important;*/
-/*}*/
-
-/*.bot {*/
-/*    height: 125px;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.bot img {*/
-/*    animation: bot_rotate 1s ease-out;*/
-/*}*/
-
-/*.bot h3 {*/
-/*    font-family: "Poppins", sans-serif;*/
-/*    font-weight: 500;*/
-/*    font-size: 20px;*/
-/*}*/
-
-/*.bot p {*/
-/*    font-family: "Poppins", sans-serif;*/
-/*    font-weight: 300;*/
-/*    font-size: 13px;*/
-/*}*/
 
 .chat-section {
     height: 80vh;
@@ -145,6 +131,7 @@ main {
     display: none;
 }
 
+.bot-intro,
 .bot-container,
 .input-container {
     font-family: "Poppins", sans-serif;
@@ -177,18 +164,24 @@ main {
 
 .type-section {
     position: absolute;
-    bottom: 2%;
+    bottom: 5%;
     width: 50%;
     justify-content: center;
     align-items: center;
 }
 
+.input-field::placeholder {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
 .type-section input {
-    border: none;
+    border: 2px solid red;
     outline: none;
     width: 70%;
-    bottom: 2%;
-    height: 2.2rem;
+    bottom: 5%;
+    height: 2.5rem;
     border-radius: 5rem;
     background: linear-gradient(
             to right bottom,
@@ -196,6 +189,7 @@ main {
             rgba(255, 255, 255, 0.5)
     ) !important;
     padding: 0 20px;
+    justify-content: center;
 }
 
 @keyframes transitionIn {

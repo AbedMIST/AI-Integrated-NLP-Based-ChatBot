@@ -9,28 +9,53 @@
 <body>
 
 <main>
+    <section class="bot-intro">
+        <h2>I am Your Buddy Bot</h2>
+    </section>
+    &nbsp;
     <section class="glass">
         <div class="chat-section">
             <div class="chat-view">
-                <div class="bot-container">
-                    <div class="bot-msg">Hey mate! I am Your Buddy Bot. Want some help? Pleasure is mine tho.</div>
-                </div>
             </div>
             &nbsp;
             <div class="type-section">
-                <input id="my-text" class="input-field" placeholder="Ask Anything Here..." type="text" name="msg">
+                <input id="my-text" class="input-field" placeholder="Ask Your Query Here ..." type="text" name="msg">
             </div>
         </div>
     </section>
-    <div class="circle1" style="background-image: '{{ url_for('static', filename='images/masum.jpg') }}';"></div>
+    <div class="circle1"></div>
     <div class="circle2"></div>
-    <div class="circle3"></div>
+    <div class="circle3" id="circle3"></div>
     <div class="circle4"></div>
     <div class="circle5"></div>
+    <div class="rectangle1" id="rectangle1"></div>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+    let sideImage = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    let profile = ['masumthebot.jpg', 'Abedur.jpeg', 'mohim.jpg', 'nihon.jpg', 'anik.jpg'];
+    let dir = 'static/images/';
+    let imgExtension = '.jpg'
+
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+
+    function changeImage(profile, sideImg) {
+        $('.rectangle1').css('backgroundImage', 'url(' + dir + sideImage[1] + imgExtension + ')');
+        $('.circle1').css('backgroundImage', 'url(' + dir + profile[0] + ')');
+        $('.circle2').css('backgroundImage', 'url(' + dir + profile[1] + ')');
+        $('.circle3').css('backgroundImage', 'url(' + dir + profile[2] + ')');
+        $('.circle4').css('backgroundImage', 'url(' + dir + profile[3] + ')');
+        $('.circle5').css('backgroundImage', 'url(' + dir + profile[4] + ')');
+    }
+
     function getBotResponse() {
         var myText = $("#my-text").val();
         var userBubble = '&nbsp;<div class="input-container"><div class="input-msg">' + myText + '</div></div>';
@@ -45,10 +70,14 @@
     }
 
     $("#my-text").keypress(function (e) {
+        shuffleArray(sideImage);
+        shuffleArray(profile);
         if (e.which == 13) {
             getBotResponse();
+            changeImage(profile, sideImage);
         }
     });
 </script>
+
 </body>
 </html>
