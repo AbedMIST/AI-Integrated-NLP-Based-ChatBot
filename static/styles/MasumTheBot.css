@@ -18,7 +18,7 @@ main {
 
 .bot-intro {
     z-index: 20;
-    animation: transitionIn 1s;
+    animation: transitionIn 2s;
     justify-content: center;
     align-items: center;
 }
@@ -40,21 +40,30 @@ main {
     animation: transitionIn 2s;
 }
 
-.rectangle1 {
+.rectangle1,
+.rectangle2{
     z-index: 0;
-    height: 20rem;
-    width: 15rem;
+    height: 13rem;
+    width: 20rem;
     position: absolute;
     border-radius: 4%;
     animation: transitionIn 2s ease-in-out;
 }
 
 #rectangle1 {
-    background-image: url(../images/masumthebot.jpg);
+    background-image: url(../images/24.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
-    top: 32%;
-    left: 8%;
+    top: 15%;
+    left: 4%;
+}
+
+#rectangle2 {
+    background-image: url(../images/1.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top: 55%;
+    left: 4%;
 }
 
 .circle1,
@@ -79,7 +88,7 @@ main {
 }
 
 .circle4 {
-    background-image: url(../images/masumthebot.jpg);
+    background-image: url(../images/Abedur.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     top: 18%;
@@ -87,7 +96,7 @@ main {
 }
 
 .circle5 {
-    background-image: url(../images/masumthebot.jpg);
+    background-image: url(../images/mohim.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     top: 18%;
@@ -95,7 +104,7 @@ main {
 }
 
 .circle2 {
-    background-image: url(../images/masumthebot.jpg);
+    background-image: url(../images/anik.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     top: 70%;
@@ -103,7 +112,7 @@ main {
 }
 
 .circle3 {
-    background-image: url(../images/masumthebot.jpg);
+    background-image: url(../images/nihon.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     top: 70%;
@@ -136,13 +145,13 @@ main {
 .input-container {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .bot-msg {
     float: left;
     /*background-color: rgb(250, 85, 241);*/
-    background-color: rgb(0, 0, 0);
+    background-color:  	rgb(0,0,0);
     color: rgb(0, 255, 0);
     border-radius: 0 12px 12px 12px;
     padding: 15px;
@@ -153,7 +162,8 @@ main {
 .input-msg {
     float: right;
     /*background-color: rgb(86, 79, 255);*/
-    background-color: rgb(255, 248, 220);
+    background-color: rgb(127,255,0);
+    /*background-color: rgb(255, 248, 220);*/
     color: rgb(0, 0, 0);
     border-radius: 12px 0 12px 12px;
     padding: 15px;

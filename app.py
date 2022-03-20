@@ -1,41 +1,15 @@
 # libraries
 import random
-import os
-from os.path import isfile, join
-
+import pyttsx3
 import numpy as np
 import pickle
 import json
-from flask import Flask, render_template, request, url_for
-from flask_ngrok import run_with_ngrok
+from flask import Flask, render_template, request
 import nltk
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
-from os import listdir
 
 lemmatizer = WordNetLemmatizer()
-
-# def compile_javascript():  # Defining the path to the folder where the JS files are saved
-#     path = 'static/javascript'  # Getting all the files from that folder
-#     files = [f for f in listdir(path) if isfile(join(path, f))]  # Setting an iterator
-#     i = 0  # Looping through the files in the first folder
-#     for file in files:  # Building a file name
-#         file_name = "javascript/" + file  # Creating a URL and saving it to a list
-#         all_js_files[i] = url_for('static', filename=file_name)  # Updating list index before moving on to next file
-#         i += 1
-#     return all_js_files
-#
-#
-# def compile_css():
-#     path = 'static/styles'
-#     files = [f for f in listdir(path) if isfile(join(path, f))]
-#     i = 0
-#     for file in files:
-#         file_name = "styles/" + file
-#         all_js_files[i] = url_for('static', filename=file_name)
-#         i += 1
-#     return all_css_files
-
 
 # chat initialization
 model = load_model("chatbot_model.h5")
@@ -46,38 +20,37 @@ classes = pickle.load(open("classes.pkl", "rb"))
 app = Flask(__name__)
 
 
+
+def text_to_speech(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 150)    # Setting up voice rate
+    engine.setProperty('volume', 80)    # Setting up volume level  between 0 and 1
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[0].id) # Change voices: 0 for male and 1 for female
+
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+
+
 @app.route('/')
 @app.route('/chatbot')
 def home():
-    # all_js_files = compile_javascript()++
-    # all_css_files = compile_css()
     return render_template('MasumTheBot.html',
                            title='MasumTheBot')
 
 @app.route('/get')
 def get_bot_response():
     userText = request.args.get('msg')
-    print(userText)
+    # print(userText)
     return chatbot_response(str(userText))
 
-# @app.route("/get", methods=["POST"])
 def chatbot_response(msg):
     # msg = request.form["msg"]
-    # checks is a user has given a name, in order to give a personalized feedback
-    # if msg.startswith('my name is'):
-    #     name = msg[11:]
-    #     ints = predict_class(msg, model)
-    #     res1 = getResponse(ints, intents)
-    #     res = res1.replace("{n}", name)
-    # elif msg.startswith('hi my name is'):
-    #     name = msg[14:]
-    #     ints = predict_class(msg, model)
-    #     res1 = getResponse(ints, intents)
-    #     res = res1.replace("{n}", name)
-    # # if no name is passed execute normally
-    # else:
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
+    # print(res)
+    text_to_speech(res)
     return res
 
 
