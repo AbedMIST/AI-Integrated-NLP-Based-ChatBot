@@ -1,4 +1,5 @@
 # libraries
+import wikipedia
 import random
 import pyttsx3
 import numpy as np
@@ -20,13 +21,12 @@ classes = pickle.load(open("classes.pkl", "rb"))
 app = Flask(__name__)
 
 
-
 def text_to_speech(text):
     engine = pyttsx3.init()
-    engine.setProperty('rate', 150)    # Setting up voice rate
-    engine.setProperty('volume', 80)    # Setting up volume level  between 0 and 1
+    engine.setProperty('rate', 150)  # Setting up voice rate
+    engine.setProperty('volume', 80)  # Setting up volume level  between 0 and 1
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[0].id) # Change voices: 0 for male and 1 for female
+    engine.setProperty('voice', voices[0].id)  # Change voices: 0 for male and 1 for female
 
     engine.say(text)
     engine.runAndWait()
@@ -39,17 +39,39 @@ def home():
     return render_template('MasumTheBot.html',
                            title='MasumTheBot')
 
+
 @app.route('/get')
 def get_bot_response():
     userText = request.args.get('msg')
     # print(userText)
     return chatbot_response(str(userText))
 
+
+def remove_substring_from_string(s, substr):
+    for i in range(len(s) - len(substr) + 1):
+        if s[i:i + len(substr)] == substr:
+            break
+    else:
+        return s
+
+    return s[:i] + s[i + len(substr):]
+
+
 def chatbot_response(msg):
     # msg = request.form["msg"]
-    ints = predict_class(msg, model)
-    res = getResponse(ints, intents)
-    # print(res)
+    special_word = "more info"
+    res = ""
+
+    if special_word in msg:
+        try:
+            x = remove_substring_from_string(msg, special_word)
+            res = wikipedia.summary(x, sentences=1)
+            print(res)
+        except:
+            res = "My mood isn't good now, there-by could not understand you. Ask again, please."
+    else:
+        ints = predict_class(msg, model)
+        res = getResponse(ints, intents)
     text_to_speech(res)
     return res
 
